@@ -24,6 +24,20 @@ const SPLIT_AT = 6;
 const worksPrimary = WORKS.slice(0, SPLIT_AT);
 const worksSecondary = [...WORKS.slice(SPLIT_AT), ...NEW_WORKS];
 
+// Keeps --zoom-x/--zoom-y (read by .card__frame img's transform-origin in
+// css/style.css) matched to the cursor's position over the frame, so the
+// hover-zoom magnifies from wherever you're actually pointing rather than
+// always from the center.
+function trackZoomOrigin(frame, img) {
+  frame.addEventListener("mousemove", (e) => {
+    const rect = frame.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    img.style.setProperty("--zoom-x", `${x}%`);
+    img.style.setProperty("--zoom-y", `${y}%`);
+  });
+}
+
 function renderCard(work) {
   const article = document.createElement("article");
   article.className = "card";
@@ -38,6 +52,7 @@ function renderCard(work) {
   img.loading = "lazy";
 
   a.appendChild(img);
+  trackZoomOrigin(a, img);
   article.appendChild(a);
   return article;
 }

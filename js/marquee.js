@@ -10,6 +10,20 @@ import { WORKS, NEW_WORKS, workUrl, workImageSrc } from "./works-data.js?v=4";
 const track = document.getElementById("marqueeTrack");
 const items = [...WORKS, ...NEW_WORKS];
 
+// Keeps --zoom-x/--zoom-y (read by .marquee__item img's transform-origin
+// in css/style.css) matched to the cursor's position over the item, so
+// the hover-zoom magnifies from wherever you're actually pointing rather
+// than always from the center.
+function trackZoomOrigin(item, img) {
+  item.addEventListener("mousemove", (e) => {
+    const rect = item.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    img.style.setProperty("--zoom-x", `${x}%`);
+    img.style.setProperty("--zoom-y", `${y}%`);
+  });
+}
+
 function renderItem(work, duplicate) {
   const a = document.createElement("a");
   a.className = "marquee__item";
@@ -24,6 +38,7 @@ function renderItem(work, duplicate) {
   img.alt = duplicate ? "" : work.title;
   img.loading = "lazy";
   a.appendChild(img);
+  trackZoomOrigin(a, img);
 
   const caption = document.createElement("span");
   caption.className = "marquee__caption";
