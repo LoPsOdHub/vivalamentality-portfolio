@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Platon — Works</title>
+<meta name="description" content="Platon's fine art works — ink and pen pieces, one per page." />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="stylesheet" href="css/style.css?v=10" />
+</head>
+<body>
+
+<nav class="nav nav--static">
+  <a class="nav__mark" href="index.html" aria-label="Platon — home">
+    <span class="stamp">56</span>
+  </a>
+  <ul class="nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="works.html">Works</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<main>
+  <!--
+    DETAIL VIEW — hidden by default, filled in and revealed by
+    js/works-page.js only when the URL has a ?w=<file> pointing at a real
+    work (arrived at from the 3D model's hotspots or the grid below).
+  -->
+  <section class="work-hero" id="workDetail" hidden>
+    <a class="work-back" href="index.html">← Back to Home</a>
+
+    <div class="work-hero__image-wrap">
+      <img class="work-hero__image" id="workImage" alt="" />
+    </div>
+
+    <div class="work-hero__meta">
+      <span class="work-hero__medium" id="workMedium"></span>
+      <h1 class="work-hero__title" id="workTitle"></h1>
+      <!-- No descriptions yet — see README.md point 2. -->
+      <p class="work-hero__desc" id="workDesc">Description forthcoming.</p>
+    </div>
+  </section>
+
+  <!--
+    All four grids below are filled in by js/works-page.js from
+    js/works-data.js — WORKS is split around the Sketches subsection (the
+    first 6, then the rest), NEW_WORKS joins the second half, and Sketches
+    / Banned are their own subsections (not part of the marquee, not on
+    the 3D model). Clicking any piece reloads this same page with
+    ?w=<file>, which shows that piece's detail view above these grids.
+  -->
+  <section class="section works" id="works">
+    <div class="section__head">
+      <h2 class="section__title">Works</h2>
+    </div>
+    <div class="grid" id="worksGridPrimary"></div>
+  </section>
+
+  <section class="section section--sub" id="sketches">
+    <div class="section__head">
+      <span class="subsection__kicker">A Series</span>
+      <h3 class="subsection__title">Sketches</h3>
+    </div>
+    <div class="grid" id="sketchesGrid"></div>
+  </section>
+
+  <section class="section section--sub">
+    <div class="grid" id="worksGridSecondary"></div>
+  </section>
+
+  <section class="section section--sub" id="banned">
+    <div class="section__head">
+      <span class="subsection__kicker">A Series</span>
+      <h3 class="subsection__title">Banned</h3>
+    </div>
+    <div class="grid" id="bannedGrid"></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <span>© 2026 Platon. All rights reserved.</span>
+  <a href="index.html">Back to home ↑</a>
+</footer>
+
+<script type="module" src="js/works-page.js?v=3"></script>
+</body>
+</html>

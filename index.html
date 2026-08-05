@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Platon — Fine Art & 3D</title>
+<meta name="description" content="Platon — ink and pen fine art alongside 3D modeling and interactive work." />
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="stylesheet" href="css/style.css?v=10" />
+
+<!-- Import map so the browser resolves the bare "three" specifier used in the js/ modules.
+     This loads Three.js from a CDN, so the page needs an internet connection and must be
+     served over http/https, not opened as a bare file:// — see README.md. -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+
+<!-- ============================= HERO ============================= -->
+<header class="hero" id="home">
+
+  <nav class="nav">
+    <a class="nav__mark" href="index.html" aria-label="Platon — home">
+      <span class="stamp">56</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="works.html">Works</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- A compact corner overlay — the model (below) is the actual focus. -->
+  <div class="hero__layout">
+    <div class="hero__text">
+      <p class="eyebrow reveal">Fine Art and 3D Works</p>
+      <h1 class="wordmark reveal"><span>VIVALAMENTALITY</span></h1>
+    </div>
+
+    <div class="hero__model">
+      <div class="hero__stage">
+        <canvas id="scene" aria-hidden="true"></canvas>
+        <!-- Filled in by js/main.js with one button per clickable object,
+             repositioned every frame to track that object on screen. -->
+        <div class="hotspot-layer"></div>
+        <p class="hero__loading">Loading scene…</p>
+      </div>
+
+      <div class="hero__rotate">
+        <span class="hero__rotate-label" aria-hidden="true">◂</span>
+        <input
+          type="range"
+          class="hero__rotate-slider"
+          min="-180"
+          max="180"
+          value="0"
+          step="1"
+          aria-label="Rotate the model left or right"
+        />
+        <span class="hero__rotate-label" aria-hidden="true">▸</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__meta reveal">
+    <div class="meta__item">
+      <span class="meta__label">Base</span>
+      <!-- EDIT ME: confirm city/country -->
+      <span class="meta__value">London, UK</span>
+    </div>
+    <div class="meta__item">
+      <span class="meta__label">Focus</span>
+      <span class="meta__value">Ink Illustration / 3D Modeling / Fine Art</span>
+    </div>
+    <div class="meta__item">
+      <span class="meta__label">Index</span>
+      <span class="meta__value">Portfolio 2026</span>
+    </div>
+  </div>
+</header>
+
+<!-- Follows the cursor while hovering a 3D hotspot, previewing the work
+     behind it. Deliberately outside the hero so its position:fixed is
+     always relative to the viewport (see the CSS comment above
+     .hotspot-plaque). -->
+<div class="hotspot-plaque" id="hotspotPlaque">
+  <img class="hotspot-plaque__thumb" id="hotspotPlaqueThumb" alt="" />
+  <span class="hotspot-plaque__text">
+    <span class="hotspot-plaque__title" id="hotspotPlaqueTitle"></span>
+    <span class="hotspot-plaque__hint">View work →</span>
+  </span>
+</div>
+
+<!--
+  MARQUEE — every work (WORKS + NEW_WORKS — see js/works-data.js; not
+  Sketches or Banned, kept out on purpose), scrolling continuously right to
+  left. Filled in by js/marquee.js, which writes the list twice back to
+  back so the loop is seamless (see the marquee-scroll keyframes in
+  css/style.css, which translate exactly -50%). Add/remove works in
+  js/works-data.js, not here.
+-->
+<div class="marquee" aria-label="Scrolling preview of all works">
+  <div class="marquee__track" id="marqueeTrack"></div>
+</div>
+
+<footer class="footer">
+  <span>© 2026 Platon. All rights reserved.</span>
+  <a href="#home">Back to top ↑</a>
+</footer>
+
+<script type="module" src="js/main.js?v=15"></script>
+<script type="module" src="js/marquee.js?v=1"></script>
+</body>
+</html>

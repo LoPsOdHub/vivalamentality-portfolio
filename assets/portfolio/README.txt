@@ -1,0 +1,34 @@
+Structure (see js/works-data.js for the exact lists the site reads):
+
+MAIN WORKS (assets/portfolio/*.jpg, in js/works-data.js as WORKS) — the
+original 10, and the only list the 3D model's hotspots pull from:
+  Plague Doctor.jpg, Man with ciggarete.jpg, Destroy.jpg, Falling Down.jpg,
+  Final Puff.jpg, Notes.jpg, Peace.jpg, Shadow.jpg, The Sence.jpg,
+  This product contains meaning which is a highly addictive substance.jpg
+
+NEW WORKS (NEW_WORKS in works-data.js) — in the main Works grid and the
+home page marquee, deliberately NOT on the 3D model:
+  Up high.jpg, Again.png, Unfinished.jpg, MEMORIES 1.jpg, #37.jpg
+  (display titles for "Memories 1" and "#37" are guesses from the
+  filename — say if you want something else)
+
+SKETCHES (assets/portfolio/Sketches/, SKETCHES in works-data.js) — its own
+subsection on works.html, positioned after the first 6 main works, NOT in
+the marquee, NOT on the 3D model:
+  Face Drawing.jpg, Smoking man.jpg, Standing.jpg, Two Poses.jpg
+
+BANNED (assets/portfolio/Banned/, BANNED in works-data.js) — its own
+subsection at the end of works.html, titled "Banned #1"–"Banned #8", NOT
+in the marquee, NOT on the 3D model:
+  #1.jpg through #8.jpg
+
+NOT YET INCLUDED anywhere — still sitting in assets/portfolio/, tell me
+which should be added, titles, and where:
+  #37.jpg's siblings scan_pn118623_2023-05-02-15-06-311024_1 (2).jpg,
+    scan_pn118623_2023-05-02-15-07-031024_1 (2).jpg,
+    scan_pn118623_2023-05-02-15-08-541024_1 (2).jpg,
+    scan_pn118623_2023-10-02-15-07-54.jpg
+    (raw scanner filenames, no given title — same situation as the
+    Scan_20260803 files below, so left out rather than guessing one)
+  Scan_20260803 (15/16/18/19/21/22/25/26/32/38/39/41/42/43/46/47/48/49).jpg
+  ыфцй.jpg — unclear if this filename/title is intentional

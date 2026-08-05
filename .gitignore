@@ -1,0 +1,6 @@
+# Local-only Claude Code settings (personal permission overrides, not shared)
+.claude/settings.local.json
+
+# OS junk
+.DS_Store
+Thumbs.db
