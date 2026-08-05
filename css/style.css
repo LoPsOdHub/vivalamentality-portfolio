@@ -485,6 +485,19 @@ button { font: inherit; color: inherit; }
    than a full .section__title so it reads as "part of Works", not a new
    page section, and sits closer to what came before it. */
 .section--sub { padding-top: clamp(24px, 5vh, 56px); }
+
+/* The second half of the Works grid (see works.html) — no header of its
+   own, so it should read as more rows of the same grid above it, not a
+   new section. Top padding matches .grid's own row gap exactly (rather
+   than 0), so the seam between the two grids falls at the same spacing
+   as every other row break inside a single grid — 0 would pull that one
+   seam noticeably tighter than the rest. Only the section directly
+   before it needs trimming to match: whichever series section follows
+   this one (Banned) still opens with .section--sub's normal top padding,
+   so the gap re-appears there, where a new named series legitimately
+   starts. */
+.section--continued { padding-top: clamp(18px, 2.6vw, 28px); }
+.works:has(+ .section--continued) { padding-bottom: 0; }
 .subsection__kicker {
   display: block;
   font-size: 11px;

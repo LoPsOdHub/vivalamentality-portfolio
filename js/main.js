@@ -30,7 +30,7 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { WORKS, workUrl, workImageSrc } from "./works-data.js?v=2";
+import { WORKS, workUrl, workImageSrc } from "./works-data.js?v=3";
 
 const CONFIG = {
   modelPath: "assets/models/MODEL CLAUDE 4 !!! .glb",

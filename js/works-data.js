@@ -18,8 +18,6 @@
    ========================================================================== */
 
 export const WORKS = [
-  { file: "Plague Doctor.jpg", title: "Plague Doctor" },
-  { file: "Man with ciggarete.jpg", title: "Man with Cigarette" },
   { file: "Destroy.jpg", title: "Destroy" },
   { file: "Falling Down.jpg", title: "Falling Down" },
   { file: "Final Puff.jpg", title: "Final Puff" },
@@ -31,6 +29,11 @@ export const WORKS = [
     file: "This product contains meaning which is a highly addictive substance.jpg",
     title: "This Product Contains Meaning",
   },
+  // Moved off the front of the grid on request — see main.js's round-robin
+  // hotspot assignment note above: order here is display order only, not
+  // a curatorial choice, so moving these two doesn't affect anything else.
+  { file: "Plague Doctor.jpg", title: "Plague Doctor" },
+  { file: "Man with ciggarete.jpg", title: "Man with Cigarette" },
 ];
 
 // EDIT ME: "#37" and "Memories 1" are display titles guessed from the

@@ -1,9 +1,10 @@
 /* ==========================================================================
    works.html — two jobs:
 
-   1. Renders all four grids (main Works split around Sketches, then
-      Sketches, then the rest of Works + New Works, then Banned) from
-      js/works-data.js.
+   1. Renders all four grids (main Works split into two grids — the first
+      6, then the rest joined by New Works, so together they read as one
+      continuous listing — followed by the Banned subsection, then
+      Sketches last) from js/works-data.js.
    2. If the URL has ?w=<file>, finds that work (searching every list) and
       reveals the detail view above the grids. With no ?w=, the page is
       just the grids. With a ?w= that doesn't match anything (a typo'd or
@@ -11,13 +12,14 @@
       showing nothing.
    ========================================================================== */
 
-import { WORKS, NEW_WORKS, SKETCHES, BANNED, findWorkByFile, workUrl, workImageSrc } from "./works-data.js?v=2";
+import { WORKS, NEW_WORKS, SKETCHES, BANNED, findWorkByFile, workUrl, workImageSrc } from "./works-data.js?v=3";
 
 /* ---- 1. Grids ---- */
 
-// The first 6 of the original Works, then Sketches breaks in, then the
-// remaining Works continue joined by the New Works, then Banned closes
-// the page out.
+// The first 6 of the original Works, then the remaining Works continue
+// joined by the New Works — split into two grids but adjacent in the page
+// (see works.html), so they still read as one continuous Works listing.
+// Banned and Sketches follow after, in that order.
 const SPLIT_AT = 6;
 const worksPrimary = WORKS.slice(0, SPLIT_AT);
 const worksSecondary = [...WORKS.slice(SPLIT_AT), ...NEW_WORKS];
