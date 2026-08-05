@@ -39,27 +39,26 @@ export const WORKS = [
   { file: "Man with ciggarete.jpg", title: "Man with Cigarette" },
 ];
 
-// EDIT ME: "#37" and "Memories 1" are display titles guessed from the
-// filenames — say if you'd rather have something else.
+// EDIT ME: "Memories 1" is a display title guessed from the filename —
+// say if you'd rather have something else.
 export const NEW_WORKS = [
   { file: "Up high.jpg", title: "Up High" },
   { file: "Again.png", title: "Again" },
   { file: "Unfinished.jpg", title: "Unfinished" },
   { file: "MEMORIES 1.jpg", title: "Memories 1" },
-  { file: "#37.jpg", title: "#37" },
+  { file: "#37.jpg", title: "Breathing" },
   { file: "photo_2026-08-03_19-52-10.jpg", title: "War" },
 ];
 
-// EDIT ME: display titles below are guessed from the filenames (kept as
-// Title Case, "#35" and "NFT" left as-is) — say if you'd rather have
-// something else.
 const THREE_D_DIR = "3D/";
 export const THREE_D = [
-  { file: `${THREE_D_DIR}CANVAS 3.jpg`, title: "Canvas 3", medium: "3D" },
-  { file: `${THREE_D_DIR}LIGHTHOUSE 2.jpg`, title: "Lighthouse 2", medium: "3D" },
-  { file: `${THREE_D_DIR}LOST NFT.jpg`, title: "Lost NFT", medium: "3D" },
-  { file: `${THREE_D_DIR}POSTER PEACE.jpg`, title: "Poster Peace", medium: "3D" },
-  { file: `${THREE_D_DIR}poster everlost 1.jpg`, title: "Poster Everlost 1", medium: "3D" },
+  { file: `${THREE_D_DIR}CANVAS 3.jpg`, title: "Repair", medium: "3D" },
+  { file: `${THREE_D_DIR}LIGHTHOUSE 2.jpg`, title: "Lighthouse", medium: "3D" },
+  { file: `${THREE_D_DIR}LOST NFT.jpg`, title: "Lost", medium: "3D" },
+  { file: `${THREE_D_DIR}POSTER PEACE.jpg`, title: "Элегия", medium: "3D" },
+  { file: `${THREE_D_DIR}poster everlost 1.jpg`, title: "Lenin", medium: "3D" },
+  // EDIT ME: "#35" is a display title guessed from the filename — say if
+  // you'd rather have something else.
   { file: `${THREE_D_DIR}#35.jpg`, title: "#35", medium: "3D" },
 ];
 

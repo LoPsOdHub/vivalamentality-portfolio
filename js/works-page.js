@@ -21,7 +21,7 @@ import {
   findWorkByFile,
   workUrl,
   workImageSrc,
-} from "./works-data.js?v=5";
+} from "./works-data.js?v=6";
 
 /* ---- 1. Grids ---- */
 
@@ -114,5 +114,6 @@ if (work) {
   titleEl.textContent = "Work not found";
   mediumEl.textContent = "";
   descEl.textContent = "That link didn't match a piece here — it may be a typo or an old link. See the full list below.";
+  descEl.hidden = false;
   detailEl.hidden = false;
 }

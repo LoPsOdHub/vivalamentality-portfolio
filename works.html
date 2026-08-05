@@ -38,8 +38,12 @@
     <div class="work-hero__meta">
       <span class="work-hero__medium" id="workMedium"></span>
       <h1 class="work-hero__title" id="workTitle"></h1>
-      <!-- No descriptions yet — see README.md point 2. -->
-      <p class="work-hero__desc" id="workDesc">Description forthcoming.</p>
+      <!-- No descriptions yet — see README.md point 2. Hidden by default
+           (on request — a "Description forthcoming." placeholder read as
+           an unfinished page rather than a deliberate choice); js/works-
+           page.js only un-hides this for the one case it still needs it:
+           a ?w= that didn't match anything. -->
+      <p class="work-hero__desc" id="workDesc" hidden></p>
     </div>
   </section>
 
@@ -92,10 +96,10 @@
 </main>
 
 <footer class="footer">
-  <span>© 2026 Vivalamentality. All rights reserved.</span>
+  <span>2026 Vivalamentality. All rights reserved.</span>
   <a href="index.html">Back to home</a>
 </footer>
 
-<script type="module" src="js/works-page.js?v=7"></script>
+<script type="module" src="js/works-page.js?v=8"></script>
 </body>
 </html>
