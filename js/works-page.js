@@ -12,7 +12,7 @@
       showing nothing.
    ========================================================================== */
 
-import { WORKS, NEW_WORKS, SKETCHES, BANNED, findWorkByFile, workUrl, workImageSrc } from "./works-data.js?v=3";
+import { WORKS, NEW_WORKS, SKETCHES, BANNED, findWorkByFile, workUrl, workImageSrc } from "./works-data.js?v=4";
 
 /* ---- 1. Grids ---- */
 

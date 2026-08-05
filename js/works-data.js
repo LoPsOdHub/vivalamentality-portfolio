@@ -44,6 +44,7 @@ export const NEW_WORKS = [
   { file: "Unfinished.jpg", title: "Unfinished" },
   { file: "MEMORIES 1.jpg", title: "Memories 1" },
   { file: "#37.jpg", title: "#37" },
+  { file: "photo_2026-08-03_19-52-10.jpg", title: "War" },
 ];
 
 const SKETCH_DIR = "Sketches/";

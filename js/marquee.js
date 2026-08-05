@@ -5,7 +5,7 @@
    remove works in js/works-data.js; this file never needs to change.
    ========================================================================== */
 
-import { WORKS, NEW_WORKS, workUrl, workImageSrc } from "./works-data.js?v=3";
+import { WORKS, NEW_WORKS, workUrl, workImageSrc } from "./works-data.js?v=4";
 
 const track = document.getElementById("marqueeTrack");
 const items = [...WORKS, ...NEW_WORKS];
