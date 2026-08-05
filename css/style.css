@@ -150,13 +150,13 @@ button { font: inherit; color: inherit; }
 
 /* Wraps the canvas stage and the rotate slider so the slider always reads
    as "attached to" the model, not a separate floating control. The model
-   is the point of this page — sized to ~90% of the viewport in both
+   is the point of this page — sized to ~80% of the viewport in both
    directions (whichever is tighter), so text stays a small corner note. */
 .hero__model {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  width: min(94vw, 90vh);
+  width: min(82vw, 78vh);
 }
 
 .hero__stage {
@@ -284,7 +284,7 @@ button { font: inherit; color: inherit; }
      instead of trying to fit them side by side in a row. */
   .hero__layout { flex-direction: column; padding-top: 0; }
   .hero__text { position: static; padding: 100px var(--gutter) 0; max-width: none; }
-  .hero__model { width: min(94vw, 58vh); margin: 24px auto 0; }
+  .hero__model { width: min(84vw, 52vh); margin: 24px auto 0; }
 }
 
 .nav {
