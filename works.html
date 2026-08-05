@@ -44,13 +44,13 @@
   </section>
 
   <!--
-    All four grids below are filled in by js/works-page.js from
+    All five grids below are filled in by js/works-page.js from
     js/works-data.js — WORKS is split into two grids (the first 6, then the
     rest) with NEW_WORKS joining the second half, so together they still
-    read as one continuous Works listing. Banned and Sketches are their own
-    subsections after it (not part of the marquee, not on the 3D model).
-    Clicking any piece reloads this same page with ?w=<file>, which shows
-    that piece's detail view above these grids.
+    read as one continuous Works listing. 3D, Banned, and Sketches are
+    their own subsections after it (not part of the marquee, not on the 3D
+    hero model). Clicking any piece reloads this same page with ?w=<file>,
+    which shows that piece's detail view above these grids.
   -->
   <section class="section works" id="works">
     <div class="section__head">
@@ -61,9 +61,17 @@
 
   <!-- No header, no top/bottom breathing room of its own (see
        .section--continued) — this is the second half of the same Works
-       listing above, not a separate subsection like Banned/Sketches. -->
+       listing above, not a separate subsection like 3D/Banned/Sketches. -->
   <section class="section section--continued">
     <div class="grid" id="worksGridSecondary"></div>
+  </section>
+
+  <section class="section section--sub" id="three-d">
+    <div class="section__head">
+      <span class="subsection__kicker">A Series</span>
+      <h3 class="subsection__title">3D</h3>
+    </div>
+    <div class="grid" id="threeDGrid"></div>
   </section>
 
   <section class="section section--sub" id="banned">
@@ -88,6 +96,6 @@
   <a href="index.html">Back to home</a>
 </footer>
 
-<script type="module" src="js/works-page.js?v=5"></script>
+<script type="module" src="js/works-page.js?v=6"></script>
 </body>
 </html>

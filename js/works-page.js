@@ -1,10 +1,10 @@
 /* ==========================================================================
    works.html — two jobs:
 
-   1. Renders all four grids (main Works split into two grids — the first
+   1. Renders all five grids (main Works split into two grids — the first
       6, then the rest joined by New Works, so together they read as one
-      continuous listing — followed by the Banned subsection, then
-      Sketches last) from js/works-data.js.
+      continuous listing — followed by the 3D, Banned, and Sketches
+      subsections, in that order) from js/works-data.js.
    2. If the URL has ?w=<file>, finds that work (searching every list) and
       reveals the detail view above the grids. With no ?w=, the page is
       just the grids. With a ?w= that doesn't match anything (a typo'd or
@@ -12,7 +12,16 @@
       showing nothing.
    ========================================================================== */
 
-import { WORKS, NEW_WORKS, SKETCHES, BANNED, findWorkByFile, workUrl, workImageSrc } from "./works-data.js?v=4";
+import {
+  WORKS,
+  NEW_WORKS,
+  THREE_D,
+  SKETCHES,
+  BANNED,
+  findWorkByFile,
+  workUrl,
+  workImageSrc,
+} from "./works-data.js?v=5";
 
 /* ---- 1. Grids ---- */
 
@@ -66,9 +75,10 @@ function renderGrid(containerId, works) {
 }
 
 renderGrid("worksGridPrimary", worksPrimary);
-renderGrid("sketchesGrid", SKETCHES);
 renderGrid("worksGridSecondary", worksSecondary);
+renderGrid("threeDGrid", THREE_D);
 renderGrid("bannedGrid", BANNED);
+renderGrid("sketchesGrid", SKETCHES);
 
 /* ---- 2. Detail view ---- */
 

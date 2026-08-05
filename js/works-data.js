@@ -2,17 +2,20 @@
    Shared work lists — used by the home page's marquee, the 3D model's
    hotspots (main.js), and works.html (grid + subsections + detail view).
 
-   Four separate lists, on purpose:
+   Five separate lists, on purpose:
      - WORKS      the original 10 — the only list the 3D hotspots pull
                   from (round-robin assignment, see main.js)
      - NEW_WORKS  newer additions — shown in the main grid and the
                   marquee alongside WORKS, but deliberately NOT wired into
                   the 3D model
+     - THREE_D    its own subsection on works.html only — not in the
+                  marquee, not on the 3D model (same treatment as
+                  Sketches/Banned below)
      - SKETCHES   its own subsection on works.html only — not in the
                   marquee, not on the 3D model
      - BANNED     same as Sketches: its own subsection on works.html only
 
-   findWorkByFile() searches all four, so a link into any of them
+   findWorkByFile() searches all five, so a link into any of them
    (works.html?w=<file>) always resolves correctly regardless of which
    list it came from.
    ========================================================================== */
@@ -45,6 +48,19 @@ export const NEW_WORKS = [
   { file: "MEMORIES 1.jpg", title: "Memories 1" },
   { file: "#37.jpg", title: "#37" },
   { file: "photo_2026-08-03_19-52-10.jpg", title: "War" },
+];
+
+// EDIT ME: display titles below are guessed from the filenames (kept as
+// Title Case, "#35" and "NFT" left as-is) — say if you'd rather have
+// something else.
+const THREE_D_DIR = "3D/";
+export const THREE_D = [
+  { file: `${THREE_D_DIR}CANVAS 3.jpg`, title: "Canvas 3", medium: "3D" },
+  { file: `${THREE_D_DIR}LIGHTHOUSE 2.jpg`, title: "Lighthouse 2", medium: "3D" },
+  { file: `${THREE_D_DIR}LOST NFT.jpg`, title: "Lost NFT", medium: "3D" },
+  { file: `${THREE_D_DIR}POSTER PEACE.jpg`, title: "Poster Peace", medium: "3D" },
+  { file: `${THREE_D_DIR}poster everlost 1.jpg`, title: "Poster Everlost 1", medium: "3D" },
+  { file: `${THREE_D_DIR}#35.jpg`, title: "#35", medium: "3D" },
 ];
 
 const SKETCH_DIR = "Sketches/";
@@ -81,11 +97,13 @@ export function workImageSrc(work) {
 }
 
 /** Looks up a work by its file name (as found in the ?w= query param),
- *  searching every list — main works, new works, sketches, and Banned. */
+ *  searching every list — main works, new works, 3D, sketches, and
+ *  Banned. */
 export function findWorkByFile(file) {
   return (
     WORKS.find((w) => w.file === file) ||
     NEW_WORKS.find((w) => w.file === file) ||
+    THREE_D.find((w) => w.file === file) ||
     SKETCHES.find((w) => w.file === file) ||
     BANNED.find((w) => w.file === file) ||
     null
