@@ -33,20 +33,6 @@ const SPLIT_AT = 6;
 const worksPrimary = WORKS.slice(0, SPLIT_AT);
 const worksSecondary = [...WORKS.slice(SPLIT_AT), ...NEW_WORKS];
 
-// Keeps --zoom-x/--zoom-y (read by .card__frame img's transform-origin in
-// css/style.css) matched to the cursor's position over the frame, so the
-// hover-zoom magnifies from wherever you're actually pointing rather than
-// always from the center.
-function trackZoomOrigin(frame, img) {
-  frame.addEventListener("mousemove", (e) => {
-    const rect = frame.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    img.style.setProperty("--zoom-x", `${x}%`);
-    img.style.setProperty("--zoom-y", `${y}%`);
-  });
-}
-
 function renderCard(work) {
   const article = document.createElement("article");
   article.className = "card";
@@ -61,7 +47,6 @@ function renderCard(work) {
   img.loading = "lazy";
 
   a.appendChild(img);
-  trackZoomOrigin(a, img);
   article.appendChild(a);
   return article;
 }
@@ -82,6 +67,22 @@ renderGrid("sketchesGrid", SKETCHES);
 
 /* ---- 2. Detail view ---- */
 
+// The one place on the site with a hover-zoom magnifier (see
+// .work-hero__image-wrap in css/style.css) — landing on a piece's own
+// page, via a click from the grid/marquee/3D hotspots, is what unlocks a
+// closer look; those browsing surfaces themselves stay static. Keeps
+// --zoom-x/--zoom-y matched to the cursor's position over the image so it
+// magnifies from wherever you're actually pointing.
+function trackZoomOrigin(frame, img) {
+  frame.addEventListener("mousemove", (e) => {
+    const rect = frame.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    img.style.setProperty("--zoom-x", `${x}%`);
+    img.style.setProperty("--zoom-y", `${y}%`);
+  });
+}
+
 const params = new URLSearchParams(location.search);
 const file = params.get("w");
 const work = file ? findWorkByFile(file) : null;
@@ -98,6 +99,7 @@ if (work) {
   imageEl.alt = work.title;
   titleEl.textContent = work.title;
   mediumEl.textContent = work.medium || "Fine Art";
+  trackZoomOrigin(imageEl.parentElement, imageEl);
   detailEl.hidden = false;
 } else if (file) {
   // A ?w= was given but didn't match anything — say so rather than

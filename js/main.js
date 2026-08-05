@@ -9,11 +9,12 @@
      2. Loads assets/models/MODEL CLAUDE 4 !!! .glb, centers it, and
         auto-fits the camera so it fills the stage.
      3. Turns it ONLY left/right (Y-axis) — no tilt on the other axis.
-        Three things drive that rotation together: dragging directly on the
+        Four things drive that rotation together: dragging directly on the
         model with the mouse (deliberate), the range slider under the stage
-        (also deliberate, and stays in sync with dragging), and a small
-        ambient wobble that follows the cursor without dragging (subtle,
-        layered on top).
+        (also deliberate, and stays in sync with dragging), a small ambient
+        wobble that follows the cursor without dragging (subtle, layered on
+        top), and a constant slow idle spin so the model is never fully
+        still.
      4. Draws real DOM buttons ("hotspot markers") over the canvas, one per
         distinct object in the scene, each precisely tracking where that
         object currently sits on screen as it turns — see the notes at the
@@ -35,14 +36,22 @@ import { WORKS, workUrl, workImageSrc } from "./works-data.js?v=5";
 const CONFIG = {
   modelPath: "assets/models/MODEL CLAUDE 4 !!! .glb",
 
-  // Rotation (Y-axis only). Three inputs feed the same target angle:
+  // Rotation (Y-axis only). Four inputs feed the same target angle:
   // dragging (deliberate, biggest range), the slider (deliberate, mirrors
-  // whatever dragging set), and a small ambient wobble from the cursor
-  // when NOT dragging (subtle, layered on top of the other two).
+  // whatever dragging set), a small ambient wobble from the cursor when
+  // NOT dragging (subtle, layered on top), and a constant idle spin
+  // (below) that runs always, for a bit of motion on the page even when
+  // nobody's touching it — dragging/the slider still fully override it
+  // moment to moment since they set sliderTargetY directly, so it never
+  // fights an active interaction, it just resumes once you let go.
   dragSensitivity: Math.PI * 1.1, // radians of rotation per full stage-width drag
   hoverRotationMax: 0.14,
   rotationEasing: 0.09,
-  idleSpinSpeed: 0, // set >0 (radians/sec) to bring back a constant auto-spin
+  // Negative = clockwise as seen from above (three.js's rotation.y is
+  // positive-counterclockwise from above; flip the sign here if that
+  // reads as the wrong way on screen). ~1 full turn every 7 minutes —
+  // meant to be noticed only as ambient life, not as an obvious spin.
+  idleSpinSpeed: -0.015,
 
   cameraFov: 32,
   // Fraction of the limiting stage dimension the model's bounding box
