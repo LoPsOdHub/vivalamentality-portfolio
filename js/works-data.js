@@ -46,7 +46,7 @@ export const NEW_WORKS = [
   { file: "Again.png", title: "Again" },
   { file: "Unfinished.jpg", title: "Unfinished" },
   { file: "MEMORIES 1.jpg", title: "Memories 1" },
-  { file: "#37.jpg", title: "Breathing" },
+  { file: "37.jpg", title: "Breathing" },
   { file: "photo_2026-08-03_19-52-10.jpg", title: "War" },
 ];
 
@@ -59,7 +59,7 @@ export const THREE_D = [
   { file: `${THREE_D_DIR}poster everlost 1.jpg`, title: "Lenin", medium: "3D" },
   // EDIT ME: "#35" is a display title guessed from the filename — say if
   // you'd rather have something else.
-  { file: `${THREE_D_DIR}#35.jpg`, title: "#35", medium: "3D" },
+  { file: `${THREE_D_DIR}35.jpg`, title: "#35", medium: "3D" },
 ];
 
 const SKETCH_DIR = "Sketches/";
@@ -71,8 +71,11 @@ export const SKETCHES = [
 ];
 
 const BANNED_DIR = "Banned/";
+// Filenames dropped the leading "#" (Netlify rejects deployed filenames
+// containing # or ? — both have special meaning in URLs) — the display
+// title below still reads "Banned #1" etc., that's just text, not a path.
 export const BANNED = Array.from({ length: 8 }, (_, i) => ({
-  file: `${BANNED_DIR}#${i + 1}.jpg`,
+  file: `${BANNED_DIR}${i + 1}.jpg`,
   title: `Banned #${i + 1}`,
   medium: "Banned Series",
 }));

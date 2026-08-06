@@ -21,7 +21,7 @@ import {
   findWorkByFile,
   workUrl,
   workImageSrc,
-} from "./works-data.js?v=6";
+} from "./works-data.js?v=7";
 
 /* ---- 1. Grids ---- */
 
