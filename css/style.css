@@ -760,19 +760,21 @@ a.contact__row:focus-visible { outline: 2px solid var(--accent); outline-offset:
   margin-bottom: clamp(24px, 5vh, 48px);
 }
 
-/* Square, like .hero__stage on the home page — the 3D viewer auto-fits
-   the canvas box to whichever dimension is tighter (see canvas-viewer.js's
+/* Square, like .hero__stage on the home page — the 3D viewer frames the
+   canvas box around its own diagonal (see canvas-viewer.js's
    frameCameraToFit), so the stage's own aspect ratio doesn't need to
    match the artwork's; square just keeps this page visually consistent
-   with the home hero. */
+   with the home hero. No background and no overflow clipping, on
+   purpose: the renderer itself clears to fully transparent, so the
+   piece floats directly on the page's own background instead of
+   sitting in a separate boxed-off square, and nothing here can clip a
+   corner as it turns. */
 .canvas-stage {
   position: relative;
   width: min(70vw, 66vh);
   max-width: 560px;
   aspect-ratio: 1 / 1;
   margin: 0 auto;
-  overflow: hidden;
-  background: var(--paper-dim);
 }
 #canvasScene {
   position: absolute;
