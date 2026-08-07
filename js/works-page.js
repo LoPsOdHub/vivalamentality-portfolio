@@ -1,10 +1,13 @@
 /* ==========================================================================
    works.html — two jobs:
 
-   1. Renders all five grids (main Works split into two grids — the first
+   1. Renders all six grids (main Works split into two grids — the first
       6, then the rest joined by New Works, so together they read as one
-      continuous listing — followed by the 3D, Banned, and Sketches
-      subsections, in that order) from js/works-data.js.
+      continuous listing — followed by the 3D, Canvas, Banned, and
+      Sketches subsections, in that order) from js/works-data.js. Canvas
+      cards are the odd one out: they come from js/canvas-data.js and
+      link to canvas.html?piece=<id> (a turnable 3D viewer) instead of
+      this page's own ?w= detail view — see renderCanvasCard.
    2. If the URL has ?w=<file>, finds that work (searching every list) and
       reveals the detail view above the grids. With no ?w=, the page is
       just the grids. With a ?w= that doesn't match anything (a typo'd or
@@ -22,6 +25,7 @@ import {
   workUrl,
   workImageSrc,
 } from "./works-data.js?v=7";
+import { CANVASES, canvasUrl, canvasImageSrc } from "./canvas-data.js?v=1";
 
 /* ---- 1. Grids ---- */
 
@@ -59,9 +63,40 @@ function renderGrid(containerId, works) {
   container.appendChild(fragment);
 }
 
+// Same card markup as renderCard, but linking to canvas.html's 3D viewer
+// (canvasUrl) instead of this page's own ?w= detail view, and using the
+// canvas's mainImage as the thumbnail — the same photo that becomes the
+// 3D box's front face on its own page.
+function renderCanvasCard(piece) {
+  const article = document.createElement("article");
+  article.className = "card";
+
+  const a = document.createElement("a");
+  a.className = "card__frame";
+  a.href = canvasUrl(piece);
+
+  const img = document.createElement("img");
+  img.src = canvasImageSrc(piece.mainImage);
+  img.alt = piece.title;
+  img.loading = "lazy";
+
+  a.appendChild(img);
+  article.appendChild(a);
+  return article;
+}
+
+function renderCanvasGrid(containerId, pieces) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const fragment = document.createDocumentFragment();
+  pieces.forEach((piece) => fragment.appendChild(renderCanvasCard(piece)));
+  container.appendChild(fragment);
+}
+
 renderGrid("worksGridPrimary", worksPrimary);
 renderGrid("worksGridSecondary", worksSecondary);
 renderGrid("threeDGrid", THREE_D);
+renderCanvasGrid("canvasGrid", CANVASES);
 renderGrid("bannedGrid", BANNED);
 renderGrid("sketchesGrid", SKETCHES);
 

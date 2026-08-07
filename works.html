@@ -6,7 +6,7 @@
 <title>Platon — Works</title>
 <meta name="description" content="Platon's fine art works — ink and pen pieces, one per page." />
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-<link rel="stylesheet" href="css/style.css?v=15" />
+<link rel="stylesheet" href="css/style.css?v=16" />
 </head>
 <body>
 
@@ -48,13 +48,16 @@
   </section>
 
   <!--
-    All five grids below are filled in by js/works-page.js from
-    js/works-data.js — WORKS is split into two grids (the first 6, then the
-    rest) with NEW_WORKS joining the second half, so together they still
-    read as one continuous Works listing. 3D, Banned, and Sketches are
-    their own subsections after it (not part of the marquee, not on the 3D
-    hero model). Clicking any piece reloads this same page with ?w=<file>,
-    which shows that piece's detail view above these grids.
+    All six grids below are filled in by js/works-page.js from
+    js/works-data.js (Canvas cards come from js/canvas-data.js instead —
+    see js/works-page.js's renderCanvasCard) — WORKS is split into two
+    grids (the first 6, then the rest) with NEW_WORKS joining the second
+    half, so together they still read as one continuous Works listing.
+    3D, Canvas, Banned, and Sketches are their own subsections after it
+    (not part of the marquee, not on the 3D hero model). Clicking a normal
+    piece reloads this same page with ?w=<file>, which shows that piece's
+    detail view above these grids; clicking a Canvas piece instead opens
+    its own page (canvas.html?piece=<id>) with a turnable 3D viewer.
   -->
   <section class="section works" id="works">
     <div class="section__head">
@@ -65,7 +68,8 @@
 
   <!-- No header, no top/bottom breathing room of its own (see
        .section--continued) — this is the second half of the same Works
-       listing above, not a separate subsection like 3D/Banned/Sketches. -->
+       listing above, not a separate subsection like 3D/Canvas/Banned/
+       Sketches. -->
   <section class="section section--continued">
     <div class="grid" id="worksGridSecondary"></div>
   </section>
@@ -76,6 +80,14 @@
       <h3 class="subsection__title">3D</h3>
     </div>
     <div class="grid" id="threeDGrid"></div>
+  </section>
+
+  <section class="section section--sub" id="canvas">
+    <div class="section__head">
+      <span class="subsection__kicker">A Series</span>
+      <h3 class="subsection__title">Canvas</h3>
+    </div>
+    <div class="grid" id="canvasGrid"></div>
   </section>
 
   <section class="section section--sub" id="banned">
@@ -100,6 +112,6 @@
   <a href="index.html">Back to home</a>
 </footer>
 
-<script type="module" src="js/works-page.js?v=8"></script>
+<script type="module" src="js/works-page.js?v=9"></script>
 </body>
 </html>

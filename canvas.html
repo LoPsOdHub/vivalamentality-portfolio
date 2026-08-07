@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Platon — Canvas</title>
+<meta name="description" content="Platon's canvas pieces, shown as a turnable 3D object." />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="stylesheet" href="css/style.css?v=16" />
+
+<!-- Same import map as index.html — this page also renders a Three.js
+     scene (the canvas's 3D viewer), so it needs the same CDN-loaded
+     three/addons/ path. See index.html's comment for why (CDN, needs
+     http(s) + a network connection). -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+
+<nav class="nav nav--static">
+  <a class="nav__mark" href="index.html" aria-label="Platon — home">
+    <span class="stamp">56</span>
+  </a>
+  <ul class="nav__links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="works.html">Works</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<main>
+  <!--
+    Filled in by js/canvas-viewer.js from js/canvas-data.js, based on
+    ?piece=<id> in the URL. A missing/unmatched id shows #canvasNotFound
+    instead (mirroring works.html's ?w= not-found handling).
+  -->
+  <section class="canvas-hero" id="canvasDetail" hidden>
+    <a class="work-back" href="works.html">Back to Works</a>
+
+    <div class="canvas-hero__meta">
+      <span class="work-hero__medium" id="canvasMedium"></span>
+      <h1 class="work-hero__title" id="canvasTitle"></h1>
+    </div>
+
+    <div class="canvas-stage" id="canvasStage">
+      <canvas id="canvasScene" aria-hidden="true"></canvas>
+      <p class="canvas-stage__loading" id="canvasLoading">Loading canvas…</p>
+    </div>
+    <p class="canvas-stage__hint">Drag to turn it — scroll or pinch to look closer</p>
+
+    <div class="canvas-gallery">
+      <div class="section__head">
+        <span class="subsection__kicker">In Detail</span>
+        <h3 class="subsection__title">Up Close</h3>
+      </div>
+      <div class="grid" id="canvasDetailGrid"></div>
+    </div>
+  </section>
+
+  <section class="work-hero" id="canvasNotFound" hidden>
+    <a class="work-back" href="works.html">Back to Works</a>
+    <div class="work-hero__meta">
+      <h1 class="work-hero__title">Piece not found</h1>
+      <p class="work-hero__desc">That link didn't match a canvas piece here — it may be a typo or an old link. See the full list on Works.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <span>2026 Vivalamentality. All rights reserved.</span>
+  <a href="works.html">Back to works</a>
+</footer>
+
+<script type="module" src="js/canvas-viewer.js?v=2"></script>
+</body>
+</html>
