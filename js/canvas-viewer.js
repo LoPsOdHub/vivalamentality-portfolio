@@ -10,14 +10,14 @@
         front face of a thin box — a stretched canvas rather than a flat
         plane, so turning it past ~80° shows a believable edge instead of
         a vanishing sliver. The box's proportions match the photo's own
-        aspect ratio once it's loaded. The back face gets CANVAS_BACK_IMAGE
-        (a real photo of a stretched canvas's back — staples, stretcher
-        bar, raw linen) instead of a flat color, so turning the piece all
-        the way around still reads as a physical object, not a prop.
-        Deliberately unlit (MeshBasicMaterial, no scene lights) — these
-        are all photos with their own real-world lighting already baked
-        in; adding synthetic studio lights on top just re-lights an
-        already-lit photo and washes it out into glare.
+        aspect ratio once it's loaded. Every other face (sides and back)
+        is a flat color — a real canvas-back photo was tried here and
+        read as visual noise against the rest of the site's design, so
+        it's back to a plain block on purpose. Deliberately unlit
+        (MeshBasicMaterial, no scene lights) — mainImage is a photo that
+        already has its own real-world lighting baked in; adding
+        synthetic studio lights on top just re-lights an already-lit
+        photo and washes it out into glare.
      3. Wires up OrbitControls so dragging turns the piece freely in any
         direction (not just left/right, unlike the home hero's model) and
         scroll/pinch zooms in on it — this page's whole point is letting
@@ -40,13 +40,6 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { CANVASES, canvasImageSrc } from "./canvas-data.js?v=1";
 
-// A real photo of a stretched canvas's back (stretcher bar, staples, raw
-// linen wrap) — used as the box's back-face texture so the piece still
-// reads as an actual object from behind, not a flat color. Lives loose in
-// assets/portfolio/ rather than with a specific piece, since it's generic
-// to every canvas here, not part of any one piece's own photo set.
-const CANVAS_BACK_IMAGE = "ХОЛСТ.jpg";
-
 const CONFIG = {
   cameraFov: 32,
   // How far out the camera sits, as a multiple of the box's own radius
@@ -57,8 +50,8 @@ const CONFIG = {
   // The box's depth (its "stretcher bar" thickness), as a fraction of
   // its own height — thin enough to read as canvas, not a brick.
   boxDepthRatio: 0.055,
-  // Raw canvas edge — the box's four side faces, a warm off-white close
-  // to the unpainted linen wrap visible in CANVAS_BACK_IMAGE's border.
+  // Raw canvas edge — every face but the front, a warm off-white close
+  // to unpainted linen/cotton duck.
   edgeColor: 0xe4d9bf,
   // Same convention as main.js's idleSpinSpeed: negative = clockwise
   // seen from above, in radians/sec. Matched to the same ~7min/turn pace
@@ -171,67 +164,31 @@ function runViewer(piece) {
   canvas.addEventListener("pointerdown", () => canvas.classList.add("is-dragging"));
   window.addEventListener("pointerup", () => canvas.classList.remove("is-dragging"));
 
-  const loader = new THREE.TextureLoader();
-  let mainTexture = null;
-  let backTexture = null;
-  let backLoadDone = false; // distinct from backTexture — lets a failed load still mean "ready" (with a flat back) instead of waiting forever
-
-  function buildMeshIfReady() {
-    if (!mainTexture || !backLoadDone || !loadingEl) return; // wait for both — building too early would show a flat color on whichever face isn't ready yet
-    const aspect = mainTexture.image.width / mainTexture.image.height;
-    const boxSize = new THREE.Vector3(aspect, 1, CONFIG.boxDepthRatio);
-    boxRadius = boxSize.length() / 2;
-
-    const edgeMaterial = new THREE.MeshBasicMaterial({ color: CONFIG.edgeColor });
-    const frontMaterial = new THREE.MeshBasicMaterial({ map: mainTexture });
-    // Falls back to the same flat edge color if CANVAS_BACK_IMAGE failed
-    // to load (backTexture stays null — see the loader.load error handler
-    // below) rather than handing MeshBasicMaterial an empty texture,
-    // which would just log its own WebGL warning every frame.
-    const backMaterial = backTexture
-      ? new THREE.MeshBasicMaterial({ map: backTexture })
-      : new THREE.MeshBasicMaterial({ color: CONFIG.edgeColor });
-    // BoxGeometry's material slots, in order: +x, -x, +y, -y, +z, -z.
-    // The camera starts on +z (see camera.position above), so index 4 is
-    // the face actually facing the viewer at rest; index 5 (-z) is what
-    // you see once you've turned it all the way around.
-    const materials = [edgeMaterial, edgeMaterial, edgeMaterial, edgeMaterial, frontMaterial, backMaterial];
-    const mesh = new THREE.Mesh(new THREE.BoxGeometry(boxSize.x, boxSize.y, boxSize.z), materials);
-    scene.add(mesh);
-
-    frameCameraToFit();
-    loadingEl.hidden = true;
-  }
-
-  loader.load(
+  new THREE.TextureLoader().load(
     canvasImageSrc(piece.mainImage),
     (texture) => {
       texture.colorSpace = THREE.SRGBColorSpace;
-      mainTexture = texture;
-      buildMeshIfReady();
+      const aspect = texture.image.width / texture.image.height;
+      const boxSize = new THREE.Vector3(aspect, 1, CONFIG.boxDepthRatio);
+      boxRadius = boxSize.length() / 2;
+
+      const edgeMaterial = new THREE.MeshBasicMaterial({ color: CONFIG.edgeColor });
+      const frontMaterial = new THREE.MeshBasicMaterial({ map: texture });
+      // BoxGeometry's material slots, in order: +x, -x, +y, -y, +z, -z.
+      // The camera starts on +z (see camera.position above), so index 4
+      // is the face actually facing the viewer at rest — every other
+      // face, including the back, is the same flat edgeMaterial.
+      const materials = [edgeMaterial, edgeMaterial, edgeMaterial, edgeMaterial, frontMaterial, edgeMaterial];
+      const mesh = new THREE.Mesh(new THREE.BoxGeometry(boxSize.x, boxSize.y, boxSize.z), materials);
+      scene.add(mesh);
+
+      frameCameraToFit();
+      if (loadingEl) loadingEl.hidden = true;
     },
     undefined,
     (err) => {
       console.info(`[canvas-viewer] Couldn't load "${piece.mainImage}".`, err);
       if (loadingEl) loadingEl.textContent = "Couldn't load this piece — try reloading.";
-    }
-  );
-  loader.load(
-    canvasImageSrc(CANVAS_BACK_IMAGE),
-    (texture) => {
-      texture.colorSpace = THREE.SRGBColorSpace;
-      backTexture = texture;
-      backLoadDone = true;
-      buildMeshIfReady();
-    },
-    undefined,
-    (err) => {
-      // Non-fatal — fall back to a flat back face (backTexture stays
-      // null, see buildMeshIfReady) rather than blocking the whole
-      // viewer over a missing generic asset.
-      console.info(`[canvas-viewer] Couldn't load "${CANVAS_BACK_IMAGE}", using a flat back instead.`, err);
-      backLoadDone = true;
-      buildMeshIfReady();
     }
   );
 
