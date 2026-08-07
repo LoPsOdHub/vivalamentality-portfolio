@@ -11,6 +11,11 @@
      detailImages  close-up photos of the same physical piece, shown as a
                    gallery below the 3D viewer (also relative to
                    assets/portfolio/)
+     stencilFont   optional — a CSS font-family already declared in
+                   css/style.css (see the @font-face rules near the top).
+                   When set, canvas.html shows the "Stencil It" tool below
+                   the gallery, live-previewing typed text in that font.
+                   Piece-specific and opt-in, not every canvas gets one.
 
    Deliberately its own small file rather than folded into works-data.js —
    a canvas entry's shape (multiple images, a 3D viewer) is different
@@ -32,6 +37,7 @@ export const CANVASES = [
       "War Canvas/Scan_20260803 (48).jpg",
       "War Canvas/Scan_20260803 (49).jpg",
     ],
+    stencilFont: "Warfont",
   },
   {
     id: "skull",

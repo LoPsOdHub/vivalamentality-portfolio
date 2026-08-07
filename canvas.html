@@ -6,7 +6,7 @@
 <title>Platon — Canvas</title>
 <meta name="description" content="Platon's canvas pieces, shown as a turnable 3D object." />
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-<link rel="stylesheet" href="css/style.css?v=17" />
+<link rel="stylesheet" href="css/style.css?v=18" />
 
 <!-- Same import map as index.html — this page also renders a Three.js
      scene (the canvas's 3D viewer), so it needs the same CDN-loaded
@@ -62,6 +62,28 @@
       </div>
       <div class="grid" id="canvasDetailGrid"></div>
     </div>
+
+    <!-- Only shown for pieces with a canvas-data.js stencilFont (currently
+         just War) — see js/canvas-viewer.js's renderStencilTool. Hidden by
+         default so it never flashes empty before that check runs. -->
+    <section class="stencil-tool" id="stencilTool" hidden>
+      <div class="section__head">
+        <span class="subsection__kicker">Try It</span>
+        <h3 class="subsection__title">Stencil It</h3>
+      </div>
+      <label class="stencil-tool__label" for="stencilInput">Type something, then stamp it</label>
+      <input
+        class="stencil-tool__input"
+        id="stencilInput"
+        type="text"
+        maxlength="20"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button class="stencil-tool__stamp" id="stencilStampBtn" type="button">
+        <span class="stencil-tool__preview" id="stencilPreview"></span>
+      </button>
+    </section>
   </section>
 
   <section class="work-hero" id="canvasNotFound" hidden>
@@ -78,6 +100,6 @@
   <a href="works.html">Back to works</a>
 </footer>
 
-<script type="module" src="js/canvas-viewer.js?v=4"></script>
+<script type="module" src="js/canvas-viewer.js?v=5"></script>
 </body>
 </html>

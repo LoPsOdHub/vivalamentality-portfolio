@@ -28,6 +28,18 @@
   font-display: swap;
 }
 
+/* A rough, hand-stencilled display face — used only by the "Stencil It"
+   tool on the War canvas page (canvas.html, see .stencil-tool below).
+   Uppercase letters only; no digits or punctuation, so every rule using
+   it lists a normal fallback right after it, letting the browser drop
+   into --font-display glyph-by-glyph for whatever this doesn't cover. */
+@font-face {
+  font-family: "Warfont";
+  src: url("../assets/fonts/Warfont-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   /* ---- Color: aged-paper beige, near-black ink, and a muted stamp-red
      pulled straight from the accent marks in the artwork itself (the red
@@ -813,3 +825,74 @@ a.contact__row:focus-visible { outline: 2px solid var(--accent); outline-offset:
 
 .canvas-gallery { margin-top: clamp(64px, 10vh, 120px); }
 .canvas-gallery .section__head { margin-bottom: clamp(24px, 5vh, 40px); }
+
+/* ==========================================================================
+   STENCIL TOOL — canvas.html's "Stencil It" widget (currently War-only,
+   see js/canvas-data.js's stencilFont + js/canvas-viewer.js's
+   renderStencilTool). Type into the input, the button stamps whatever's
+   typed in the Warfont face, with a little press + off-kilter rotation
+   each time — a hand-stamp, not a perfectly centered logo.
+   ========================================================================== */
+.stencil-tool {
+  margin-top: clamp(64px, 10vh, 120px);
+  text-align: center;
+}
+.stencil-tool .section__head { margin-bottom: clamp(24px, 5vh, 40px); }
+.stencil-tool__label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.stencil-tool__input {
+  display: block;
+  width: min(100%, 360px);
+  margin: 0 auto 28px;
+  padding: 10px 4px;
+  border: none;
+  border-bottom: 1.5px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  transition: border-color 0.2s ease;
+}
+.stencil-tool__input::placeholder { color: var(--muted); }
+.stencil-tool__input:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* The stamp itself — a plaque you press, like the boxed rubber-stamp
+   labels recurring in the artwork ("This product contains…"). */
+.stencil-tool__stamp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: min(100%, 480px);
+  padding: clamp(28px, 5vw, 48px) clamp(24px, 4vw, 40px);
+  border: 2px solid var(--ink);
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.08s ease, border-color 0.2s ease;
+}
+.stencil-tool__stamp:hover { border-color: var(--accent); }
+.stencil-tool__stamp:active { transform: scale(0.94); }
+.stencil-tool__stamp:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.stencil-tool__preview {
+  display: inline-block;
+  font-family: "Warfont", var(--font-display);
+  font-size: clamp(32px, 7vw, 72px);
+  line-height: 1;
+  color: var(--accent);
+  text-transform: uppercase;
+  word-break: break-word;
+  /* Reset on every stamp (see js/canvas-viewer.js) to a fresh small
+     random angle — a real stamp never lands perfectly level twice. */
+  transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
+}

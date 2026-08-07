@@ -30,6 +30,10 @@
         prefers-reduced-motion.
      5. Renders the piece's detailImages as a plain grid below the
         viewer, each linking to the full photo in a new tab.
+     6. If the piece has a stencilFont (see js/canvas-data.js — currently
+        just War), shows the "Stencil It" tool below the gallery: type
+        anything, press the plaque, and it re-renders in that font with a
+        fresh small random tilt each press.
 
    No lights, no environment map, and the renderer clears to fully
    transparent (see CONFIG below) — the piece floats directly on the
@@ -38,7 +42,7 @@
 
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { CANVASES, canvasImageSrc } from "./canvas-data.js?v=1";
+import { CANVASES, canvasImageSrc } from "./canvas-data.js?v=2";
 
 const CONFIG = {
   cameraFov: 32,
@@ -82,6 +86,7 @@ function runViewer(piece) {
   document.getElementById("canvasTitle").textContent = piece.title;
   document.getElementById("canvasMedium").textContent = piece.medium || "Canvas";
   renderGallery(piece);
+  renderStencilTool(piece);
   detailEl.hidden = false;
 
   const stageEl = document.getElementById("canvasStage");
@@ -225,4 +230,35 @@ function renderGallery(piece) {
     fragment.appendChild(article);
   });
   container.appendChild(fragment);
+}
+
+// Opt-in per piece (see js/canvas-data.js's stencilFont) — no-ops and
+// leaves #stencilTool hidden for any piece that doesn't set one.
+function renderStencilTool(piece) {
+  if (!piece.stencilFont) return;
+  const section = document.getElementById("stencilTool");
+  const input = document.getElementById("stencilInput");
+  const stampBtn = document.getElementById("stencilStampBtn");
+  const preview = document.getElementById("stencilPreview");
+  if (!section || !input || !stampBtn || !preview) return;
+
+  preview.style.fontFamily = `"${piece.stencilFont}", var(--font-display)`;
+  preview.textContent = piece.title;
+  input.placeholder = piece.title;
+
+  // A fresh small random tilt every press — a real hand-stamp never
+  // lands perfectly level twice. CSS drives the spring-back transition
+  // (see .stencil-tool__preview); this just picks the new angle.
+  function stamp() {
+    const angle = (Math.random() * 8 - 4).toFixed(2);
+    preview.style.transform = `rotate(${angle}deg)`;
+  }
+  stamp();
+
+  input.addEventListener("input", () => {
+    preview.textContent = input.value.trim() || piece.title;
+  });
+  stampBtn.addEventListener("click", stamp);
+
+  section.hidden = false;
 }

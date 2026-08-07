@@ -25,7 +25,7 @@ import {
   workUrl,
   workImageSrc,
 } from "./works-data.js?v=7";
-import { CANVASES, canvasUrl, canvasImageSrc } from "./canvas-data.js?v=1";
+import { CANVASES, canvasUrl, canvasImageSrc } from "./canvas-data.js?v=2";
 
 /* ---- 1. Grids ---- */
 
